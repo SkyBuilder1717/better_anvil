@@ -41,14 +41,15 @@ minetest.register_node("better_anvil:anvil", {
 	on_metadata_inventory_take = function(pos, list_name, i, stack, player)
 		local meta = minetest.get_meta(pos)
 	    local inv = meta:get_inventory()
-		local mstack = inv:get_stack("modifier", 1)
-		if list_name == "output" and mdstack:get_name() == "" then
+		local mdstack = inv:get_stack("modifier", 1)
+		if list_name == "output" then
 			inv:set_stack("input", 1, "")
-            if (mdstack:get_definition().groups.dye == 1) or (instack:get_name() == mdstack:get_name()) then
+            if not mdstack:is_empty() then
 				inv:set_stack("modifier", 1, "")
             end
 			meta:set_string("formspec", better_anvil.get_formspec(true))
 		elseif list_name == "modifier" then
+			meta:set_string("formspec", better_anvil.get_formspec(true))
 			inv:set_stack("output", 1, "")
 		end
 	end,

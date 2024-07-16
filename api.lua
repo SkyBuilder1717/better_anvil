@@ -75,22 +75,25 @@ function better_anvil.update(pos, fields)
         if not fields.name == desc then
             imeta:set_string("description", core.colorize("lightgrey", name))
         end
-        local wear = instack:get_wear() - (mdstack:get_wear() / 3)
+        local wear = instack:get_wear() - (mdstack:get_wear()/3)
         if wear > 65535 then wear = 65535 end
+        if wear < 0 then wear = 0 end
         if mdstack:is_empty() then
             meta:set_string("formspec", better_anvil.get_formspec(true, name))
         else
             if instack:get_name() == mdstack:get_name() then
                 meta:set_string("formspec", better_anvil.get_formspec(false, name))
                 instack:set_wear(wear)
+                inv:set_stack("output", 1, instack)
             elseif mdstack:get_definition().groups.dye == 1 then
                 meta:set_string("formspec", better_anvil.get_formspec(false, name))
                 imeta:set_string("color", mname)
+                inv:set_stack("output", 1, instack)
             else
                 meta:set_string("formspec", better_anvil.get_formspec(true, name))
+                inv:set_stack("output", 1, "")
             end
         end
-        inv:set_stack("output", 1, instack)
     else
         inv:set_stack("output", 1, "")
         meta:set_string("formspec", better_anvil.get_formspec(true))
