@@ -1,20 +1,3 @@
---==API DOCUMENTATION==--
---[[
-
-    better_anvil.register_repair() needs to api of mod for repairing items in node
-    
-    -How to use?
-    --better_anvil.register_repair(name, def)
-      --[
-       NAME: real name of item (CRAFTITEM!!)
-       DEF: table that must contains:
-       {
-        item = "default:diamond" -- ITEM THAT WILL REPAIR OUR TOOL IN "NAME"
-       }
-      ]--
-
-]]--
-
 function better_anvil.register_repair(name, def)
     better_anvil.registered_repairs[name] = def
 end
